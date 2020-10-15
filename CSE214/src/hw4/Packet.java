@@ -9,14 +9,14 @@ package hw4;
  * @Recitation: R03
  * @Instructor: Dylan Andres
  */
-
+@SuppressWarnings("all")
 public class Packet {
 	private static int packetCount = 0;
 	private int id;
 	private int packetSize;
 	private int timeArrive;
 	private int timeToDest;
-	
+
 	/**
 	 * getPacketCount method
 	 * 
@@ -25,128 +25,117 @@ public class Packet {
 	public int getPacketCount() {
 		return this.packetCount;
 	}
-	
+
 	/**
 	 * setPacketCount method
 	 * 
 	 * @param packetCount - int
 	 * 
-	 * @postcondition packetCount variable set
-	 *  to param packetCount
+	 * @postcondition packetCount variable set to param packetCount
 	 */
 	public void setPacketCount(int packetCount) {
 		this.packetCount = packetCount;
 	}
-	
+
 	/**
 	 * getId method
 	 * 
-	 * @return int - id of current
-	 *  Packet object
+	 * @return int - id of current Packet object
 	 */
 	public int getId() {
 		return this.id;
 	}
-	
+
 	/**
 	 * setId method
 	 * 
 	 * @param id - int
 	 * 
-	 * @postcondition current Packet object's
-	 *  id set to param id
+	 * @postcondition current Packet object's id set to param id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	/**
 	 * getPacketSize method
 	 * 
-	 * @return int - packetSize of
-	 *  current Packet object
+	 * @return int - packetSize of current Packet object
 	 */
 	public int getPacketSize() {
 		return this.packetSize;
 	}
-	
+
 	/**
 	 * setPacketSize method
 	 * 
 	 * @param packetSize - int
 	 * 
-	 * @postcondition current Packet object's 
-	 *  packetSize set to param packetSize
+	 * @postcondition current Packet object's packetSize set to param packetSize
 	 */
 	public void setPacketSize(int packetSize) {
 		this.packetSize = packetSize;
 	}
-	
+
 	/**
 	 * getTimeArrive method
 	 * 
-	 * @return int - timeArrive of
-	 *  current Packet object
+	 * @return int - timeArrive of current Packet object
 	 */
 	public int getTimeArrive() {
 		return this.timeArrive;
 	}
-	
+
 	/**
 	 * setTimeArrive method
 	 * 
 	 * @param timeArrive - int
 	 * 
-	 * @postcondition current Packet object's
-	 *  timeArrive set to param timeArrive
+	 * @postcondition current Packet object's timeArrive set to param timeArrive
 	 */
 	public void setTimeArrive(int timeArrive) {
 		this.timeArrive = timeArrive;
 	}
-	
+
 	/**
 	 * getTimeToDest method
 	 * 
-	 * @return int - timeToDest of
-	 *  current Packet object
+	 * @return int - timeToDest of current Packet object
 	 */
 	public int getTimeToDest() {
 		return this.timeToDest;
 	}
-	
+
 	/**
 	 * setTimeToDest method
 	 * 
 	 * @param timeToDest - int
 	 * 
-	 * @postcondition current Packet object's
-	 *  timeToDest set to param timeToDest
+	 * @postcondition current Packet object's timeToDest set to param timeToDest
 	 */
 	public void setTimeToDest(int timeToDest) {
 		this.timeToDest = timeToDest;
 	}
-	
+
 	/**
 	 * no-arg constructor
 	 * 
 	 * @postcondition new Packet object created
 	 * 
-	 * @postcondition Packet id set to current
-	 *  packetCount; packetCount incremented
-	 *  
-	 * @postcondition packetSize set to random 
-	 *  int within the given bounds
-	 *  
-	 * @postcondition timeToDest set to 1/100
-	 *  of packetSize
+	 * @postcondition Packet id set to current packetCount; packetCount
+	 *                incremented
+	 * 
+	 * @postcondition packetSize set to random int within the given bounds
+	 * 
+	 * @postcondition timeToDest set to 1/100 of packetSize
 	 */
 	public Packet(int minSize, int maxSize) {
 		this.id = packetCount++;
-		this.packetSize = (int)(Math.random() * 
-				(maxSize - minSize + 1) + minSize);
+		this.packetSize = (int) (Math.random() * (maxSize - minSize + 1)
+				+ minSize);
 		this.timeToDest = this.packetSize / 100;
 	}
-	
+
 	/**
 	 * arg-constructor
 	 * 
@@ -158,9 +147,9 @@ public class Packet {
 	 * 
 	 * @postcondition new Packet object created
 	 * 
-	 * @postcondition Packet id set to current
-	 *  packetCount; packetCount incremented
-	 *  
+	 * @postcondition Packet id set to current packetCount; packetCount
+	 *                incremented
+	 * 
 	 * @postcondition packetSize set to param packetSize
 	 * 
 	 * @postcondition timeArrive set to param timeArrive
@@ -173,35 +162,33 @@ public class Packet {
 		this.timeArrive = timeArrive;
 		this.timeToDest = timeToDest;
 	}
-	
+
 	/**
 	 * toString method
 	 * 
-	 * returns String representation of the 
-	 *  Packet object
+	 * returns String representation of the Packet object
 	 */
 	public String toString() {
 		String s = "";
-		s += String.format("[%d, %d, %d]", this.id, 
-				this.timeArrive, this.timeToDest);
+		s += String.format("[%d, %d, %d]", this.id, this.timeArrive,
+				this.timeToDest);
 		return s;
 	}
-	
-	
+
 	public static void main(String[] args) {
-		
+
 		int min = 500;
 		int max = 1500;
 
 		Packet p1 = new Packet(min, max);
 		System.out.println(p1);
-		
+
 		Packet p2 = new Packet(min, max);
 		System.out.println(p2);
-		
+
 		Packet p3 = new Packet(min, max);
 		System.out.println(p3);
-		
+
 		Packet p4 = new Packet(min, max);
 		System.out.println(p4);
 

@@ -386,21 +386,3 @@ class RouterNode {
 		this.data = packet;
 	}
 }
-
-class EmptyRouterException extends Exception {
-	public EmptyRouterException(String message) {
-		super(message);
-	}
-}
-
-class FullRouterException extends Exception {
-	public FullRouterException(String message) {
-		super(message);
-	}
-}
-
-class AllRoutersFullException extends Exception {
-	public AllRoutersFullException(String message) {
-		super(message);
-	}
-}

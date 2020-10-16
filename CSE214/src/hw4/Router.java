@@ -313,7 +313,7 @@ class RouterNode {
 	/**
 	 * arg-constructor
 	 * 
-	 * @param packet - Packet object\
+	 * @param packet - Packet object
 	 * 
 	 * @postcondition new RouterNode object has been created
 	 * 

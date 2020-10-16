@@ -192,27 +192,4 @@ public class Packet {
 				this.timeToDest);
 		return s;
 	}
-
-	public static void main(String[] args) {
-
-		int min = 500;
-		int max = 1500;
-
-		Packet p1 = new Packet((int)(Math.random()*(max-min+1)+min),1);
-		System.out.println(p1.getPacketSize());
-		System.out.println(p1);
-
-		Packet p2 = new Packet((int)(Math.random()*(max-min+1)+min),2);
-		System.out.println(p2.getPacketSize());
-		System.out.println(p2);
-
-		Packet p3 = new Packet((int)(Math.random()*(max-min+1)+min),3);
-		System.out.println(p3.getPacketSize());
-		System.out.println(p3);
-
-		Packet p4 = new Packet((int)(Math.random()*(max-min+1)+min),4);
-		System.out.println(p4.getPacketSize());
-		System.out.println(p4);
-
-	}
 }

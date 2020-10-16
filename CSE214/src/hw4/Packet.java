@@ -11,7 +11,7 @@ package hw4;
  */
 @SuppressWarnings("all")
 public class Packet {
-	private static int packetCount = 0;
+	private static int packetCount = 1;
 	private int id;
 	private int packetSize;
 	private int timeArrive;
@@ -124,20 +124,38 @@ public class Packet {
 	 * 
 	 * @postcondition Packet id set to current packetCount; packetCount
 	 *                incremented
+	 */
+	public Packet() {
+		this.id = packetCount++;
+	}
+	
+	/**
+	 * first arg constructor
 	 * 
-	 * @postcondition packetSize set to random int within the given bounds
+	 * @param packetSize - int
+	 * 
+	 * @param timeArrive - int
+	 * 
+	 * @postcondition new Packet object created
+	 * 
+	 * @postcondition Packet id set to current packetCount; packetCount
+	 *                incremented
+	 *                
+	 * @postcondition timeArrive set to param timeArrive
+	 * 
+	 * @postcondition packetSize set to param packetSize
 	 * 
 	 * @postcondition timeToDest set to 1/100 of packetSize
 	 */
-	public Packet(int minSize, int maxSize) {
+	public Packet(int packetSize, int timeArrive) {
 		this.id = packetCount++;
-		this.packetSize = (int) (Math.random() * (maxSize - minSize + 1)
-				+ minSize);
+		this.timeArrive = timeArrive;
+		this.packetSize = packetSize;
 		this.timeToDest = this.packetSize / 100;
 	}
 
 	/**
-	 * arg-constructor
+	 * second arg-constructor
 	 * 
 	 * @param packetSize - int
 	 * 
@@ -180,16 +198,20 @@ public class Packet {
 		int min = 500;
 		int max = 1500;
 
-		Packet p1 = new Packet(min, max);
+		Packet p1 = new Packet((int)(Math.random()*(max-min+1)+min),1);
+		System.out.println(p1.getPacketSize());
 		System.out.println(p1);
 
-		Packet p2 = new Packet(min, max);
+		Packet p2 = new Packet((int)(Math.random()*(max-min+1)+min),2);
+		System.out.println(p2.getPacketSize());
 		System.out.println(p2);
 
-		Packet p3 = new Packet(min, max);
+		Packet p3 = new Packet((int)(Math.random()*(max-min+1)+min),3);
+		System.out.println(p3.getPacketSize());
 		System.out.println(p3);
 
-		Packet p4 = new Packet(min, max);
+		Packet p4 = new Packet((int)(Math.random()*(max-min+1)+min),4);
+		System.out.println(p4.getPacketSize());
 		System.out.println(p4);
 
 	}

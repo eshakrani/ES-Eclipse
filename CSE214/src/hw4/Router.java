@@ -11,6 +11,8 @@ package hw4;
  */
 
 import java.util.ArrayList;
+import java.util.Collection;
+
 @SuppressWarnings("all")
 public class Router {
 	// queue implemented as Linked List
@@ -193,20 +195,20 @@ public class Router {
 	 *         size / most free buffer space
 	 * 
 	 * @throws AllRoutersFullException - when every Router object in param
-	 *                                 Routers is at max capacity / has no free
-	 *                                 space
+	 *         Routers is at max capacity / has no free space
 	 */
-	public static int sendPacketTo(ArrayList<Router> routers)
+	public static int sendPacketTo(Collection routers)
 			throws AllRoutersFullException {
-		int minSize = routers.get(0).size();
+		ArrayList<Router> routerList = (ArrayList)routers;
+		int minSize = routerList.get(0).size();
 		int index = 0;
 		int numFull = 0;
 		for (int i = 0; i < routers.size(); i++) {
-			if (routers.get(i).size() < minSize) {
-				minSize = routers.get(i).size();
+			if (routerList.get(i).size() < minSize) {
+				minSize = routerList.get(i).size();
 				index = i;
 			}
-			if (routers.get(i).size() == maxBufferSize) {
+			if (routerList.get(i).size() == maxBufferSize) {
 				numFull++;
 			}
 		}
@@ -220,34 +222,6 @@ public class Router {
 		// list with the smallest size
 		return index + 1;
 
-	}
-
-	public static void main(String[] args) {
-		try {
-			Router r = new Router();
-			Packet p1 = new Packet(1, 5);
-			Packet p2 = new Packet(1, 5);
-			Packet p3 = new Packet(1, 6);
-			r.enqueue(p1);
-			r.enqueue(p2);
-			Router r2 = new Router();
-			r2.enqueue(p2);
-			r2.enqueue(p3);
-			r.setMaxBufferSize(3);
-			ArrayList<Router> list = new ArrayList<>();
-			list.add(r);
-			list.add(r2);
-
-			r.enqueue(p3);
-			r2.enqueue(p1);
-
-			System.out.println(Router.sendPacketTo(list));
-
-		} catch (FullRouterException e) {
-			System.out.println(e.getMessage());
-		} catch (AllRoutersFullException e) {
-			System.out.println(e.getMessage());
-		}
 	}
 }
 

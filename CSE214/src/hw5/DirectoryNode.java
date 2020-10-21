@@ -29,12 +29,24 @@ public class DirectoryNode {
 		return this.left;
 	}
 	
+	public void setLeft(DirectoryNode left) {
+		this.left = left;
+	}
+	
 	public DirectoryNode getMiddle() {
 		return this.middle;
 	}
 	
+	public void setMiddle(DirectoryNode middle) {
+		this.middle = middle;
+	}
+	
 	public DirectoryNode getRight() {
 		return this.right;
+	}
+	
+	public void setRight(DirectoryNode right) {
+		this.right = right;
 	}
 	
 	public boolean getIsFile() {
@@ -57,5 +69,47 @@ public class DirectoryNode {
 		this.left = null;
 		this.middle = null;
 		this.right = null;
+	}
+	
+	/**
+	 * addChild method
+	 * 
+	 * adds newChild to any of the open child positions of this node
+	 * 
+	 * @param newChild - DirectoryNode object
+	 * 
+	 * @precondition this node is not a file
+	 * 
+	 * @precondition there is at least one empty position in the children
+	 *  of this node
+	 *  
+	 * @postcondition newChild has been added as a child of this node
+	 *  (If no more room for a new node, throw FullDirectoryException)
+	 * 
+	 * @throws FullDirectoryException if all child references of this 
+	 *  directory are occupied
+	 * 
+	 * @throws NotADirectoryException if the current node is a file - files 
+	 *  cannot contain DirectoryNode references
+	 */
+	public void addChild(DirectoryNode newChild) throws FullDirectoryException, 
+		NotADirectoryException {
+		if (this.getIsFile()) {
+			throw new NotADirectoryException("");
+		}
+		else {
+			if (this.getLeft() != null) {
+				this.setLeft(newChild);
+			}
+			else if (this.getMiddle() != null) {
+				this.setMiddle(newChild);
+			}
+			else if (this.getRight() != null) {
+				this.setRight(newChild);
+			}
+			else {
+				throw new FullDirectoryException("");
+			}
+		}
 	}
 }

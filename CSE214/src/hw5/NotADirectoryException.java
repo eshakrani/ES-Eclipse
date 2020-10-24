@@ -15,4 +15,5 @@ public class NotADirectoryException extends Exception {
 	public NotADirectoryException(String e) {
 		super(e);
 	}
+	public NotADirectoryException() {}
 }

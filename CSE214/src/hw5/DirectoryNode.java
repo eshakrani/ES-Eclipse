@@ -13,9 +13,9 @@ package hw5;
 @SuppressWarnings("all")
 public class DirectoryNode {
 	private String name;
-	private DirectoryNode left;
-	private DirectoryNode middle;
-	private DirectoryNode right;
+	
+	private DirectoryNode children[];
+	
 	private boolean isFile;
 	private String prefix;
 	private int level;
@@ -43,66 +43,24 @@ public class DirectoryNode {
 	}
 	
 	/**
-	 * getLeft method
+	 * getChildren method
 	 * 
-	 * @return DirectoryNode - left child of current DirectoryNode
+	 * @return DirectoryNode array - children of current DirectoryNode
 	 */
-	public DirectoryNode getLeft() {
-		return this.left;
+	public DirectoryNode[] getChildren() {
+		return this.children;
 	}
 	
 	/**
-	 * setLeft method
+	 * setChildren method
 	 * 
-	 * @param left - DirectoryNode
+	 * @param children - array of DirectoryNode objects
 	 * 
-	 * @postcondition left child of current DirectoryNode has been set to 
-	 *  param left
+	 * @postcondition children array of current DirectoryNode has been 
+	 *  set to param children
 	 */
-	public void setLeft(DirectoryNode left) {
-		this.left = left;
-	}
-	
-	/**
-	 * getMiddle method
-	 * 
-	 * @return DirectoryNode - middle child of current DirectoryNode
-	 */
-	public DirectoryNode getMiddle() {
-		return this.middle;
-	}
-	
-	/**
-	 * setMiddle method
-	 * 
-	 * @param middle - DirectoryNode
-	 * 
-	 * @postcondition middle child of current DirectoryNode has been set to 
-	 *  param middle
-	 */
-	public void setMiddle(DirectoryNode middle) {
-		this.middle = middle;
-	}
-	
-	/**
-	 * getRight method
-	 * 
-	 * @return DirectoryNode - right child of current DirectoryNode
-	 */
-	public DirectoryNode getRight() {
-		return this.right;
-	}
-	
-	/**
-	 * setRight method
-	 * 
-	 * @param right - DirectoryNode
-	 * 
-	 * @postcondition right child of current DirectoryNode has been set to 
-	 *  param right
-	 */
-	public void setRight(DirectoryNode right) {
-		this.right = right;
+	public void setChildren(DirectoryNode children[]) {
+		this.children = children;
 	}
 	
 	/**
@@ -213,9 +171,12 @@ public class DirectoryNode {
 	 */
 	public DirectoryNode() {
 		this.name = null;
-		this.left = null;
-		this.middle = null;
-		this.right = null;
+		
+		this.children = new DirectoryNode[10];
+		for (int i = 0; i < 10; i++) {
+			this.children[i] = null;
+		}
+		
 		this.parent = null;
 		this.level = 0;
 		this.prefix = "|- ";
@@ -238,9 +199,12 @@ public class DirectoryNode {
 	 */
 	public DirectoryNode(String name) {
 		this.name = name;
-		this.left = null;
-		this.middle = null;
-		this.right = null;
+		
+		this.children = new DirectoryNode[10];
+		for (int i = 0; i < 10; i++) {
+			this.children[i] = null;
+		}
+		
 		this.parent = null;
 		this.level = 0;
 		this.prefix = "|- ";
@@ -273,23 +237,16 @@ public class DirectoryNode {
 			throw new NotADirectoryException();
 		}
 		else {
-			if (this.getLeft() == null) {
-				this.setLeft(newChild);
-				newChild.setParent(this);
-				newChild.setLevel(newChild.getParent().getLevel() + 1);
-			}
-			else if (this.getMiddle() == null) {
-				this.setMiddle(newChild);
-				newChild.setParent(this);
-				newChild.setLevel(newChild.getParent().getLevel() + 1);
-			}
-			else if (this.getRight() == null) {
-				this.setRight(newChild);
-				newChild.setParent(this);
-				newChild.setLevel(newChild.getParent().getLevel() + 1);
-			}
-			else {
-				throw new FullDirectoryException();
+			for (int i = 0; i < 11; i++) {
+				if (i == 10) {
+					throw new FullDirectoryException();
+				}
+				else if (this.getChildren()[i] == null) {
+					this.getChildren()[i] = newChild;
+					newChild.setParent(this);
+					newChild.setLevel(newChild.getParent().getLevel() + 1);
+					break;
+				}
 			}
 		}
 	}
@@ -324,14 +281,10 @@ public class DirectoryNode {
 		
 		System.out.println(this.getPrefix() + this.getName());
 		
-		if (this.getLeft() != null) {
-			this.getLeft().printHelper(base);
-		}
-		if (this.getMiddle() != null) {
-			this.getMiddle().printHelper(base);
-		}
-		if (this.getRight() != null) {
-			this.getRight().printHelper(base);
+		for (int i = 0; i < 10; i++) {
+			if (this.getChildren()[i] != null) {
+				this.getChildren()[i].printHelper(base);
+			}
 		}
 	}
 	
@@ -339,22 +292,16 @@ public class DirectoryNode {
 	 * isFull method
 	 * 
 	 * @return - boolean 
-	 *  - true if DirectoryNode has left, middle, and right children present
+	 *  - true if DirectoryNode has all 10 children present
 	 *  - false otherwise
 	 */
 	public boolean isFull() {
-		if (this.getLeft() == null) {
-			return false;
+		for (int i = 0; i < 10; i++) {
+			if (this.getChildren()[i] == null) {
+				return false;
+			}
 		}
-		else if (this.getMiddle() == null) {
-			return false;
-		}
-		else if (this.getRight() == null) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return true;
 	}
 	
 	/**
@@ -372,15 +319,11 @@ public class DirectoryNode {
 			this.setLevel(this.getParent().getLevel() + 1);
 		}
 		
-		if (this.getLeft() != null) {
-			this.getLeft().correctLevels();
-		}
-		if (this.getMiddle() != null) {
-			this.getMiddle().correctLevels();
-		}
-		if (this.getRight() != null) {
-			this.getRight().correctLevels();
-		}
+		for (int i = 0; i < 10; i++) {
+			if (this.getChildren()[i] != null) {
+				this.getChildren()[i].correctLevels();
+			}
+		}		
 	}
 	
 	/**
@@ -396,20 +339,15 @@ public class DirectoryNode {
 	 */
 	public void deleteParentConnection() {
 		DirectoryNode parent = this.getParent();
-		if (parent.getLeft().equals(this)) {
-			parent.setLeft(parent.getMiddle());
-			parent.setMiddle(parent.getRight());
-			parent.setRight(null);
-			return;
-		}
-		if (parent.getMiddle().equals(this)) {
-			parent.setMiddle(parent.getRight());
-			parent.setRight(null);
-			return;
-		}
-		if (parent.getRight().equals(this)) {
-			parent.setRight(null);
-			return;
+		
+		for (int i = 0; i < 10; i++) {
+			if (parent.getChildren()[i].equals(this)) {
+				for (int j = i; j < 9; j++) {
+					parent.getChildren()[j] = parent.getChildren()[j + 1];
+				}
+				parent.getChildren()[9] = null;
+				return;
+			}
 		}
 	}
 
@@ -454,14 +392,11 @@ public class DirectoryNode {
 		if (this.getName().equals(name)) {
 			nodeArray[index++] = this;
 		}
-		if (this.getLeft() != null) {
-			this.getLeft().findAllNodes(name);
-		}
-		if (this.getMiddle() != null) {
-			this.getMiddle().findAllNodes(name);
-		}
-		if (this.getRight() != null) {
-			this.getRight().findAllNodes(name);
+		
+		for (int i = 0; i < 10; i++) {
+			if (this.getChildren()[i] != null) {
+				this.getChildren()[i].findAllNodes(name);
+			}
 		}
 	}
 	

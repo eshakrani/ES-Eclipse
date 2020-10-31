@@ -100,6 +100,22 @@ public class DirectoryTree {
 	 */
 	public void changeDirectory(String name) throws NotADirectoryException {
 		
+		
+		for (int i = 0; i < 10; i++) {
+			if (this.getCursor().getChildren()[i] != null) {
+				if (this.getCursor().getChildren()[i].getName().equals(name)) {
+					if (this.getCursor().getChildren()[i].getIsFile()) {
+						throw new NotADirectoryException();
+					}
+					else {
+						this.setCursor(this.getCursor().getChildren()[i]);
+						return;
+					}
+				}
+			}
+		}
+		
+		/*
 		// if left child is not null
 		if (this.getCursor().getLeft() != null) {
 		
@@ -150,6 +166,8 @@ public class DirectoryTree {
 				}
 			}
 		}
+		*/
+		
 		System.out.printf("ERROR: No such directory named '%s'.\n", name);
 	}
 	
@@ -160,116 +178,80 @@ public class DirectoryTree {
 		boolean found = false;
 		temp = this.getCursor();
 		
-		if ((this.getCursor().getLeft() != null && 
-				!this.getCursor().getLeft().getName().equals(dir[0]))
-				&& (this.getCursor().getMiddle() != null && 
-					!this.getCursor().getMiddle().getName().equals(dir[0]))
-				&& (this.getCursor().getRight() != null && 
-					!this.getCursor().getRight().getName().equals(dir[0]))) {
+		for (int i = 0; i < 10; i++) {
 			
-			
-				if (!this.getRoot().getName().equals(dir[0])) {
-				
-				System.out.printf("ERROR: No such directory "
-						+ "named '%s'.\n", path);
-				return;
+			if ((this.getCursor().getChildren()[i] != null) &&
+				(!this.getCursor().getChildren()[i].getName().equals(dir[0]))) {
+				if (i == 9) {
+					if (!this.getRoot().getName().equals(dir[0])) {
+						System.out.printf("ERROR: No such directory "
+								+ "named '%s'.\n", path);
+						return;
+					}
+				}
+			}
+			else {
+				break;
 			}
 		}
 		
 		if (!this.getRoot().getName().equals(dir[0])) {
 			
-			if ((this.getCursor().getLeft() != null && 
-				!this.getCursor().getLeft().getName().equals(dir[0]))
-				&& (this.getCursor().getMiddle() != null && 
-					!this.getCursor().getMiddle().getName().equals(dir[0]))
-				&& (this.getCursor().getRight() != null && 
-					!this.getCursor().getRight().getName().equals(dir[0]))) {
+			for (int i = 0; i < 10; i++) {
 				
-				System.out.printf("ERROR: No such directory "
-						+ "named '%s'.\n", path);
-				return;
+				if ((this.getCursor().getChildren()[i] != null) &&
+					(!this.getCursor().getChildren()[i].getName().
+							equals(dir[0]))) {
+					if (i == 9) {
+						System.out.printf("ERROR2: No such directory "
+								+ "named '%s'.\n", path);
+						return;
+					}
+				}
+				else {
+					break;
+				}
 			}
-		}
+		}		
 		
-		if (this.getCursor().getLeft() != null && 
-				this.getCursor().getLeft().getName().equals(dir[0])) {
-			this.setCursor(this.getCursor().getLeft());
-		}
-		else if (this.getCursor().getMiddle() != null && 
-				this.getCursor().getMiddle().getName().equals(dir[0])) {
-			this.setCursor(this.getCursor().getMiddle());
-		}
-		else if (this.getCursor().getRight() != null && 
-				this.getCursor().getRight().getName().equals(dir[0])) {
-			this.setCursor(this.getCursor().getRight());
+		for (int i = 0; i < 10; i++) {
+			if (this.getCursor().getChildren()[i] != null &&
+				this.getCursor().getChildren()[i].getName().equals(dir[0])) {
+				this.setCursor(this.getCursor().getChildren()[i]);
+				break;
+			}
 		}
 		
 		if (this.getRoot().getName().equals(dir[0])) {
 			this.resetCursor();
 		}
+		
 		// else the cursor just remains where it currently is
 		
-		
-		for (int i = 1; i < dir.length; i++) {
+		for (int j = 1; j < dir.length; j++) {
 			
-			if (this.getCursor().getLeft() != null) {
-				if (this.getCursor().getLeft().getName().equals(dir[i])) {
-					found = true;
-					if (this.getCursor().getLeft().getIsFile()) {
-						throw new NotADirectoryException();
+			for (int i = 0; i < 10; i++) {
+				
+				if (this.getCursor().getChildren()[i] != null) {
+					if (this.getCursor().getChildren()[i].getName().
+							equals(dir[j])) {
+						found = true;
+						if (this.getCursor().getChildren()[i].getIsFile()) {
+							throw new NotADirectoryException();
+						}
+						else {
+							this.setCursor(this.getCursor().getChildren()[i]);
+							break;
+						}
 					}
 					else {
-						this.setCursor(this.getCursor().getLeft());
-						continue;
+						found = false;
 					}
 				}
 				else {
 					found = false;
+					break;
 				}
-			}
-			else {
-				found = false;
-				break;
-			}
-			
-			if (this.getCursor().getMiddle() != null) {
-				if (this.getCursor().getMiddle().getName().equals(dir[i])) {
-					found = true;
-					if (this.getCursor().getMiddle().getIsFile()) {
-						throw new NotADirectoryException();
-					}
-					else {
-						this.setCursor(this.getCursor().getMiddle());
-						continue;
-					}
-				}
-				else {
-					found = false;
-				}
-			}
-			else {
-				found = false;
-				break;
-			}
-			
-			if (this.getCursor().getRight() != null) {
-				if (this.getCursor().getRight().getName().equals(dir[i])) {
-					found = true;
-					if (this.getCursor().getRight().getIsFile()) {
-						throw new NotADirectoryException();
-					}
-					else {
-						this.setCursor(this.getCursor().getRight());
-						continue;
-					}
-				}
-				else {
-					found = false;
-				}
-			}
-			else {
-				found = false;
-				break;
 			}
 			
 			if (!found) {
@@ -279,7 +261,6 @@ public class DirectoryTree {
 				return;
 			}
 		}
-		
 	}
 	
 	/**
@@ -311,20 +292,16 @@ public class DirectoryTree {
 	 */
 	public String listDirectory() {
 		String s = "";
-		if (this.getCursor().getLeft() != null) {
-			s += this.getCursor().getLeft().getName() + " ";
-		}
-		if (this.getCursor().getMiddle() != null) {
-			s += this.getCursor().getMiddle().getName() + " ";
-		}
-		if (this.getCursor().getRight() != null) {
-			s += this.getCursor().getRight().getName();
-		}
 		
+		for (int i = 0; i < 10; i++) {
+			if (this.getCursor().getChildren()[i] != null) {
+				s += this.getCursor().getChildren()[i].getName() + " ";
+			}
+		}
+
 		if (s.equals("")) {
 			return "No files or directories found in this directory.";
 		}
-		
 		return s;
 	}
 	
@@ -454,21 +431,15 @@ public class DirectoryTree {
 			searchNode = iter;
 			return;
 		}
-		if (iter.getLeft() != null) {
-			iter = iter.getLeft();
-			this.traverseSearch(name);
-			iter = iter.getParent();
+		
+		for (int i = 0; i < 10; i++) {
+			if (iter.getChildren()[i] != null) {
+				iter = iter.getChildren()[i];
+				this.traverseSearch(name);
+				iter = iter.getParent();
+			}
 		}
-		if (iter.getMiddle() != null) {
-			iter = iter.getMiddle();
-			this.traverseSearch(name);
-			iter = iter.getParent();
-		}
-		if (iter.getRight() != null) {
-			iter = iter.getRight();
-			this.traverseSearch(name);
-			iter = iter.getParent();
-		}
+		
 	}
 	
 	/**
@@ -486,8 +457,6 @@ public class DirectoryTree {
 		this.traverseSearch(name);
 		return searchNode;
 	}
-	
-	
 	
 	/**
 	 * isLegalArgument method
@@ -515,4 +484,5 @@ public class DirectoryTree {
 		}
 		return legal;
 	}
+
 }

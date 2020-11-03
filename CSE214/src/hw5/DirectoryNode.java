@@ -16,6 +16,10 @@ public class DirectoryNode {
 	
 	private DirectoryNode children[];
 	
+	private DirectoryNode left;
+	private DirectoryNode middle;
+	private DirectoryNode right;
+	
 	private boolean isFile;
 	private String prefix;
 	private int level;
@@ -61,6 +65,69 @@ public class DirectoryNode {
 	 */
 	public void setChildren(DirectoryNode children[]) {
 		this.children = children;
+	}
+	
+	/**
+	 * getLeft method
+	 * 
+	 * @return DirectoryNode - left child of current DirectoryNode
+	 */
+	public DirectoryNode getLeft() {
+		return this.left;
+	}
+	
+	/**
+	 * setLeft method
+	 * 
+	 * @param left - DirectoryNode
+	 * 
+	 * @postcondition left child of current DirectoryNode has been
+	 *  set to param left
+	 */
+	public void setLeft(DirectoryNode left) {
+		this.left = left;
+	}
+	
+	/**
+	 * getMiddle method
+	 * 
+	 * @return DirectoryNode - middle child of current DirectoryNode
+	 */
+	public DirectoryNode getMiddle() {
+		return this.middle;
+	}
+	
+	/**
+	 * setMiddle method
+	 * 
+	 * @param middle - DirectoryNode
+	 * 
+	 * @postcondition middle child of current DirectoryNode has been
+	 *  set to param middle
+	 */
+	public void setMiddle(DirectoryNode middle) {
+		this.middle = middle;
+	}
+	
+	/**
+	 * getRight method
+	 * 
+	 * @return DirectoryNode - right child of current DirectoryNode
+	 */
+	public DirectoryNode getRight() {
+		return this.right;
+	}
+	
+	/**
+	 * setRight method
+	 * 
+	 * @param right - DirectoryNode
+	 * 
+	 * @postcondition right child of current DirectoryNode has been
+	 *  set to param right
+	 */
+	public void setRight(DirectoryNode right) {
+		this.right = right;
 	}
 	
 	/**

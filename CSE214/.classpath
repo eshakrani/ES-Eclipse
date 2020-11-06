@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="TestPractice"/>
+	<classpathentry kind="lib" path="E:/eshak/Documents/College/Year 2/Fall 2020/CSE 214/bigdata.jar" sourcepath=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

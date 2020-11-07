@@ -60,52 +60,25 @@ public class AuctionTable extends Hashtable implements Serializable {
 				// Auction IDs
 				String id[] = 
 						ds.fetchStringArray("listing/auction_info/id_num");
-//				System.out.println("IDs: ");
-//				for (String s : id) {
-//					System.out.println(s);
-//				}
-//				System.out.println();
-			
 
 				
 				// Sellers
 				String sellers[] = 
 						ds.fetchStringArray("listing/seller_info/seller_name");
-//				System.out.println("Sellers: ");
-//				for (String s : sellers) {
-//					System.out.println(s);
-//				}
-//				System.out.println();
 			
 
 				// Bids
-//				String st = ds.fetchString("listing/auction_info/current_bid");
-//				System.out.println(st);
 				String stBids[] = ds.fetchStringArray
 						("listing/auction_info/current_bid");
-//				System.out.println("REACHED");
-
-//				System.out.println("Current Bids: ");
 				double bids[] = new double[stBids.length];
 				for (int i = 0; i < bids.length; i++) {
 					bids[i] = convertToDouble(stBids[i]);
 				}
-//				for (double d : bids) {
-//					System.out.println(d);
-//				}
-//				System.out.println();
-//				System.out.println("REACHEsD");
 
 				
 				// Buyers
 				String buyers[] = ds.fetchStringArray
 						("listing/auction_info/high_bidder/bidder_name");
-//				System.out.println("Buyers: ");
-//				for (String s : buyers) {
-//					System.out.println(s);
-//				}
-//				System.out.println();
-				
 				
 				
 				// Item Info
@@ -119,15 +92,6 @@ public class AuctionTable extends Hashtable implements Serializable {
 				for (int i = 0; i < info.length; i++) {
 					info[i] = cpu[i] + " - " + mem[i] + " - " + hdd[i];
 				}
-//				for (String s : info) {
-//					s = s.substring(0, 42);
-//				}
-//				System.out.println("Item info: ");
-//				for (String s : info) {
-//					System.out.println(s.substring(0, 42));
-//				}
-//				System.out.println();
-				
 				
 				
 				// Time 
@@ -137,12 +101,6 @@ public class AuctionTable extends Hashtable implements Serializable {
 				for (int i = 0; i < times.length; i++) {
 					times[i] = stringToHours(stTime[i]);
 				}
-//				System.out.println("Times left: ");
-//				for (int t : times) {
-//					System.out.println(t);
-//				}
-//				System.out.println();
-				
 				
 				for (int i = 0; i < bids.length; i++) {
 					table.putAuction(id[i], new Auction(id[i], sellers[i], 
@@ -204,11 +162,6 @@ public class AuctionTable extends Hashtable implements Serializable {
 		hours = hours + (days * 24);
 		return hours;
 	}
-	
-//	DataSource ds = DataSource.connect("http://tinyurl.com/nbf5g2h").load();
-//	String str[] = ds.fetchStringArray("listing/item_info/description");
-	
-	
 	
 	/**
 	 * manually posts an auction and adds it into the table
@@ -285,10 +238,6 @@ public class AuctionTable extends Hashtable implements Serializable {
 		for (Object ob : this.keySet().toArray()) {
 			if (this.getAuction((String)ob).getTimeRemaining() == 0) {
 				this.remove((String)ob);
-//				System.out.println("TRUE");
-			}
-			else {
-//				System.out.println("FALSE");
 			}
 		}
 	}

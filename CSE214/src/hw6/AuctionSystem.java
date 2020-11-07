@@ -54,7 +54,6 @@ public class AuctionSystem implements Serializable {
 		
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
-
 		
 		System.out.println("Starting...");
 		
@@ -67,27 +66,14 @@ public class AuctionSystem implements Serializable {
 			fileFound = false;
 			auc.table = new AuctionTable();
 		}
-//		System.out.println(ois == null);
-//		System.out.println(auc.table);
-//		auc.table.printTable();
-		
-//		System.out.println(fileFound);
 		
 		if (fileFound) {
 			System.out.println("Loading previous Auction Table...");
-//			ois = new ObjectInputStream(file);
-//			system.table = (AuctionTable) inStream.readObject();
 		}
 		else {
 			System.out.println("No previous auction table detected.");
 			System.out.println("Creating new table...");
-//			system.table = new AuctionTable();
 		}
-		
-		
-		
-		
-		
 		
 		System.out.print("\nPlease select a username: ");
 		auc.username = stdin.nextLine();
@@ -121,6 +107,7 @@ public class AuctionSystem implements Serializable {
 						System.out.println("Invalid URL.");
 					}
 					break;
+					
 				case "A": case "a": 
 					System.out.println("\nCreating new Auction as " + 
 							auc.username + ".");
@@ -139,6 +126,7 @@ public class AuctionSystem implements Serializable {
 					System.out.println("\nAuction " + auctionID + 
 							" inserted into table.");
 					break;
+					
 				case "B": case "b": 
 					System.out.print("Please enter an Auction ID: ");
 					auctionID = stdin.nextLine();
@@ -197,6 +185,7 @@ public class AuctionSystem implements Serializable {
 							auctionID + " was not found.");
 					}
 					break;
+					
 				case "I": case "i": 
 					System.out.print("Please enter an Auction ID: ");
 					auctionID = stdin.nextLine();
@@ -217,6 +206,7 @@ public class AuctionSystem implements Serializable {
 						System.out.println("    Info: " + temp.getItemInfo());
 					}
 					break;
+					
 				case "P": case "p": 
 					if (auc.table == null) {
 						System.out.println("No table to print!");
@@ -225,11 +215,13 @@ public class AuctionSystem implements Serializable {
 						auc.table.printTable();
 					}
 					break;
+					
 				case "R": case "r": 
 					System.out.println("\nRemoving expired auctions...");
 					auc.table.removeExpiredAuctions();
 					System.out.println("All expired auctions removed.");
 					break;
+					
 				case "T": case "t": 
 					System.out.print("How many hours should pass: ");
 					hoursPassed = stdin.nextInt();
@@ -239,31 +231,30 @@ public class AuctionSystem implements Serializable {
 					auc.table.letTimePass(hoursPassed);
 					System.out.println("Auction times updated.");
 					break;
+					
 				case "Q": case "q": 
 					try {
 						fos = new FileOutputStream("auctions.obj");
 						oos = new ObjectOutputStream(fos);
 						oos.writeObject(auc.table);
-						System.out.println("Writing Auction Table to file...");
+						System.out.println("\nWriting Auction Table to file...");
 						System.out.println("Done!");
 						System.out.println("\nGoodbye.");
+						System.exit(9001);
 					}
 					catch (FileNotFoundException e) {
 						System.out.println("Exception.");
 					}
 					
-//					System.out.println();
-//					System.out.println("Writing Auction Table to file...");
-//					System.out.println("Done!");
-//					System.out.println("\nGoodbye.");
+					System.out.println();
+					System.out.println("Writing Auction Table to file...");
+					System.out.println("Done!");
+					System.out.println("\nGoodbye.");
 					break;
+					
 				default: System.out.println("Invalid input."); break;
 			}
 		}
-		
-		return;
-//		ObjectInputStream inStream = new ObjectInputStream(file);
-//		AuctionTable auctions;
 	}
 	
 	

@@ -25,7 +25,30 @@ public class Tester214 implements Serializable {
 			System.out.println(st + "\tLength: " + st.length());
 		}
 		
+		System.out.println("\n" + s[9]);
+		System.out.println("\n");
+		String split[] = s[9].split(" ");
+		System.out.println("\nSize: " + split.length);
+		for (String st : split) {
+			System.out.println(st);
+		}
+		for (String st : split) {
+			System.out.println(st.isBlank());
+		}
 		
+		System.out.println("\n");
+		
+		String fin = "";
+		for (String st : split) {
+			if (!st.isBlank()) {
+				fin += " " + st;
+			}
+		}
+		System.out.println("Fin: " + fin);
+		
+		fin = fin.trim();
+		System.out.println("New fin: " + fin);
+		System.out.println(split[0] + split[split.length - 1]);
 		
 //		String token = stdin.next();
 //		System.out.println(token);

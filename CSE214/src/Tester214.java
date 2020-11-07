@@ -1,8 +1,34 @@
 import big.data.*;
+import hw6.AuctionTable;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Hashtable;
-public class Tester214 {
-	public static void main (String[] args){
+import java.util.Scanner;
+public class Tester214 implements Serializable {
+	int data = 5;
+	public Tester214(int data) {this.data = data;}
+	public static void main (String[] args) throws FileNotFoundException, 
+		IOException, ClassNotFoundException {
+		Scanner stdin = new Scanner(System.in);
 		
+		AuctionTable a;
+		
+		DataSource ds = DataSource.connect("http://tinyurl.com/p7vub89").load();
+		String s[] = ds.fetchStringArray("listing/seller_info/seller_name");
+		for (String st : s) {
+			System.out.println(st + "\tLength: " + st.length());
+		}
+		
+		
+		
+//		String token = stdin.next();
+//		System.out.println(token);
 //		String nums[] = {
 //				"1,011.234", "123.4", "1234.0"
 //		};
@@ -21,11 +47,7 @@ public class Tester214 {
 //		Hashtable<Object, Object> h = new Hashtable<Object, Object>();
 //		h.put("Key", "Value");
 //		
-//		h.put("Key2", "Value2");
-		
-		
-		System.out.println(stringToHours("2 days, 5 hours +"));
-		
+//		h.put("Key2", "Value2");		
 		
 		
 	
@@ -63,6 +85,12 @@ public class Tester214 {
 		}
 		hours = hours + (days * 24);
 		return hours;
+	}
+
+	public String toString() {
+		String s = "";
+		s += "Data: " + this.data;
+		return s;
 	}
 }
 

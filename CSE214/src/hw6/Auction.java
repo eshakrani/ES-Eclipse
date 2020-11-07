@@ -176,11 +176,17 @@ public class Auction implements Serializable {
 	public String toString() {
 		String s = "";
 		s += String.format("%10s | $", this.getAuctionID());
-		s += String.format("%,9.2f |", this.getCurrentBid());
+		if (this.getCurrentBid() == 0) {
+			s += String.format("%9s |", " ");
+		}
+		else {
+			s += String.format("%,9.2f |", this.getCurrentBid());
+		}
 		s += String.format(" %-23s |", this.getSellerName());
 		s += String.format("  %-25s |", this.getBuyerName());
 		s += String.format(" %3d hours |", this.getTimeRemaining());
-		s += String.format(" %s", this.getItemInfo().substring(0, 42));
+//		s += String.format(" %s", this.getItemInfo().substring(0, 42));
+		s += String.format(" %s", this.getItemInfo());
 		return s;
 	}
 	
@@ -213,18 +219,18 @@ public class Auction implements Serializable {
 				
 		Auction a1 = new Auction("511601118", "cubsfantony", 
 				"gosha555@excite.com", 
-				"Pentium III 933 System - 256MB PC133 SDram", 110, 620.00);
+				"Pentium III 933 System - 256MB PC133 SDramsdf", 110, 0);
 		Auction a2 = new Auction("511448507", "ct-inc", "petitjc@yahoo.com", 
-				"Pentium III 800EB-MHz Coppermine CPU - 256", 54, 620.00);
+				"Pentium III 800EB-MHz Coppermine CPU - 256sdf", 54, 0.00);
 		Auction a3 = new Auction("511443245", "ct-inc", 
 				"hsclm9@peganet.com", 
-				"Intel Pentium III 933EB-MHz Copermine CPU", 54, 1025.00);
+				"Intel Pentium III 933EB-MHz Copermine CPUsdf", 54, 1025.00);
 		Auction a4 = new Auction("511364992", "bestbuys4systems", 
 				"student@stonybrook.edu", 
-				"Genuine Intel Pentium III 1000MHz Processo", 55, 625.00);
+				"Genuine Intel Pentium III 1000MHz Processosdf", 55, 625.00);
 		Auction a5 = new Auction("511357667", "sales@ctgcom.com", 
 				"chul2@mail.utexas.edu", 
-				"INTEL Pentium III 800MHz - 256MB sdram -40", 50, 535.00);
+				"INTEL Pentium III 800MHz - 256MB sdram -40sdf", 50, 535.00);
 		System.out.println(a1);
 		System.out.println(a2);
 		System.out.println(a3);

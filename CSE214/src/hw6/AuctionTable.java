@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import big.data.DataSource;
 import java.util.Hashtable;
-
+@SuppressWarnings("all")
 public class AuctionTable extends Hashtable implements Serializable {
 	
 	/**
@@ -264,21 +264,6 @@ public class AuctionTable extends Hashtable implements Serializable {
 		for (Object ob : this.keySet()) {
 			System.out.println(this.getAuction((String)ob));
 		}
-		
-//		for (Object ob : this.keySet()) {
-//			System.out.println(this.getAuction((String)ob).getSellerName());
-//		}
-		
-	}
-	
-	
-	
-	public static void main (String[] args) {
-		AuctionTable a = buildFromURL("http://tinyurl.com/p7vub89");
-		a.printTable();
-//		DataSource d = DataSource.connect("sample_file.xml").load();
-//		String str = d.fetchString("listing/seller_info/seller_name");
-//		System.out.println(str);
 	}
 	
 }

@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+@SuppressWarnings("all")
 public class AuctionSystem implements Serializable {
 	
 	private AuctionTable table;
@@ -153,10 +154,10 @@ public class AuctionSystem implements Serializable {
 							System.out.println("Auction " + auctionID + 
 									" is OPEN");
 							
-							System.out.print("    Current Bid: $ ");
+							System.out.print("    Current Bid: ");
 							
 							System.out.println((temp.getCurrentBid() > 0) 
-									? String.format("%,.2f ", 
+									? String.format("$ %,.2f ", 
 											temp.getCurrentBid()) 
 											: "NONE");
 							System.out.println();
@@ -164,11 +165,11 @@ public class AuctionSystem implements Serializable {
 							newBid = stdin.nextDouble();
 							stdin.nextLine();
 							if (newBid > temp.getCurrentBid()) {
-								auc.table.replace(auctionID, 
-									new Auction(auctionID, temp.getSellerName(),
-									auc.username, temp.getItemInfo(), 
-									temp.getTimeRemaining(), newBid));
-								System.out.println("Bid accepted.");
+								try {
+									temp.newBid(auc.username, newBid);
+									System.out.println("Bid accepted.");
+								}
+								catch (ClosedAuctionException e) {}
 							} // if proposed bid is greater than current
 							
 							else {

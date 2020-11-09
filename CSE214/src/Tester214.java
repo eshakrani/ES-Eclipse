@@ -49,6 +49,7 @@ public class Tester214 implements Serializable {
 		fin = fin.trim();
 		System.out.println("New fin: " + fin);
 		System.out.println(split[0] + split[split.length - 1]);
+		String q = "H";
 		
 //		String token = stdin.next();
 //		System.out.println(token);

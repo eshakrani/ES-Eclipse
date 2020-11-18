@@ -187,11 +187,12 @@ public class Auction implements Serializable {
 		else {
 			s += String.format("%,9.2f |", this.getCurrentBid());
 		}
-		s += String.format(" %-23s |", this.getSellerName());
-		s += String.format("  %-25s |", this.getBuyerName());
+		s += String.format(" %-20s |", this.getSellerName());
+		s += String.format(" %-22s |", this.getBuyerName());
 		s += String.format(" %3d hours |", this.getTimeRemaining());
 //		s += String.format(" %s", this.getItemInfo().substring(0, 42));
-		s += String.format(" %s", this.getItemInfo());
+		s += String.format(" %s", (this.getItemInfo().length() >= 50 ? 
+				this.getItemInfo().substring(0, 50) : this.getItemInfo()));
 		return s;
 	}
 

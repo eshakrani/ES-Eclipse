@@ -48,72 +48,71 @@ public class AuctionTable extends Hashtable implements Serializable {
 	public static AuctionTable buildFromURL (String URL) throws 
 		IllegalArgumentException {
 		DataSource ds = DataSource.connect(URL).load();
-		if (ds.equals(null)) {
+		try {
+		
+			// create new AuctionTable
+			AuctionTable table = new AuctionTable();
+			
+			// Auction IDs
+			String id[] = 
+					ds.fetchStringArray("listing/auction_info/id_num");
+
+			
+			// Sellers
+			String sellers[] = 
+					ds.fetchStringArray("listing/seller_info/seller_name");
+		
+
+			// Bids
+			String stBids[] = ds.fetchStringArray
+					("listing/auction_info/current_bid");
+			double bids[] = new double[stBids.length];
+			for (int i = 0; i < bids.length; i++) {
+				bids[i] = convertToDouble(stBids[i]);
+			}
+
+			
+			// Buyers
+			String buyers[] = ds.fetchStringArray
+					("listing/auction_info/high_bidder/bidder_name");
+			
+			
+			// Item Info
+			String mem[] = 
+					ds.fetchStringArray("listing/item_info/memory");
+			String hdd[] = 
+					ds.fetchStringArray("listing/item_info/hard_drive");
+			String cpu[] = 
+					ds.fetchStringArray("listing/item_info/cpu");
+			String info[] = new String[mem.length];
+			for (int i = 0; i < info.length; i++) {
+				info[i] = cpu[i] + " - " + mem[i] + " - " + hdd[i];
+			}
+			
+			
+			// Time 
+			String stTime[] = 
+					ds.fetchStringArray("listing/auction_info/time_left");
+			int times[] = new int[stTime.length];
+			for (int i = 0; i < times.length; i++) {
+				times[i] = stringToHours(stTime[i]);
+			}
+			
+			for (int i = 0; i < bids.length; i++) {
+				table.putAuction(id[i], new Auction(id[i], sellers[i], 
+						buyers[i], info[i], times[i], bids[i]));
+			}
+			
+			return table;
+			
+		}
+		catch (IllegalArgumentException e) {}
+		catch (Exception e) {
 			throw new IllegalArgumentException();
 		}
-		else {
-			try {
-			
-				// create new AuctionTable
-				AuctionTable table = new AuctionTable();
-				
-				// Auction IDs
-				String id[] = 
-						ds.fetchStringArray("listing/auction_info/id_num");
-
-				
-				// Sellers
-				String sellers[] = 
-						ds.fetchStringArray("listing/seller_info/seller_name");
-			
-
-				// Bids
-				String stBids[] = ds.fetchStringArray
-						("listing/auction_info/current_bid");
-				double bids[] = new double[stBids.length];
-				for (int i = 0; i < bids.length; i++) {
-					bids[i] = convertToDouble(stBids[i]);
-				}
-
-				
-				// Buyers
-				String buyers[] = ds.fetchStringArray
-						("listing/auction_info/high_bidder/bidder_name");
-				
-				
-				// Item Info
-				String mem[] = 
-						ds.fetchStringArray("listing/item_info/memory");
-				String hdd[] = 
-						ds.fetchStringArray("listing/item_info/hard_drive");
-				String cpu[] = 
-						ds.fetchStringArray("listing/item_info/cpu");
-				String info[] = new String[mem.length];
-				for (int i = 0; i < info.length; i++) {
-					info[i] = cpu[i] + " - " + mem[i] + " - " + hdd[i];
-				}
-				
-				
-				// Time 
-				String stTime[] = 
-						ds.fetchStringArray("listing/auction_info/time_left");
-				int times[] = new int[stTime.length];
-				for (int i = 0; i < times.length; i++) {
-					times[i] = stringToHours(stTime[i]);
-				}
-				
-				for (int i = 0; i < bids.length; i++) {
-					table.putAuction(id[i], new Auction(id[i], sellers[i], 
-							buyers[i], info[i], times[i], bids[i]));
-				}
-				
-				return table;
-				
-			}
-			catch (Exception e) {}
-			return null;
-		}	
-	}
+		return null;
+	}	
+	
 	
 	/**
 	 * converts a double represented by a String into a true double
@@ -249,8 +248,8 @@ public class AuctionTable extends Hashtable implements Serializable {
 		String header = "";
 		header += "Auction ID |";
 		header += "     Bid    |"; 
-		header += "        Seller           |";
-		header += "          Buyer             |";
+		header += "        Seller        |";
+		header += "         Buyer          |";
 		header += "   Time    |";
 		header += "  Item Info";
 		
@@ -264,6 +263,5 @@ public class AuctionTable extends Hashtable implements Serializable {
 		for (Object ob : this.keySet()) {
 			System.out.println(this.getAuction((String)ob));
 		}
-	}
-	
+	}	
 }

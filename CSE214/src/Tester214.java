@@ -14,68 +14,34 @@ public class Tester214 implements Serializable {
 	int data = 5;
 	public Tester214(int data) {this.data = data;}
 	public static void main (String[] args) throws FileNotFoundException, 
-		IOException, ClassNotFoundException {
+		IOException, ClassNotFoundException, IllegalArgumentException {
 		Scanner stdin = new Scanner(System.in);
 		
 		AuctionTable a;
 		
-		DataSource ds = DataSource.connect("http://tinyurl.com/p7vub89").load();
-		String s[] = ds.fetchStringArray("listing/seller_info/seller_name");
-		for (String st : s) {
-			System.out.println(st + "\tLength: " + st.length());
-		}
 		
-		System.out.println("\n" + s[9]);
-		System.out.println("\n");
-		String split[] = s[9].split(" ");
-		System.out.println("\nSize: " + split.length);
-		for (String st : split) {
-			System.out.println(st);
-		}
-		for (String st : split) {
-			System.out.println(st.isBlank());
-		}
 		
-		System.out.println("\n");
-		
-		String fin = "";
-		for (String st : split) {
-			if (!st.isBlank()) {
-				fin += " " + st;
-			}
-		}
-		System.out.println("Fin: " + fin);
-		
-		fin = fin.trim();
-		System.out.println("New fin: " + fin);
-		System.out.println(split[0] + split[split.length - 1]);
-		String q = "H";
-		
-//		String token = stdin.next();
-//		System.out.println(token);
-//		String nums[] = {
-//				"1,011.234", "123.4", "1234.0"
-//		};
-//		
-//		double d[] = new double[nums.length];
-//		
-//		for (int i = 0; i < nums.length; i++) {
-//			d[i] = convertToDouble(nums[i]);
+//		for (int i = 0; i < 10; i++) {
+//			System.out.println(fib(i));
 //		}
-//		
-//		for (double s : d) {
-//			System.out.println(s);
-//		}
-	
-	
-//		Hashtable<Object, Object> h = new Hashtable<Object, Object>();
-//		h.put("Key", "Value");
-//		
-//		h.put("Key2", "Value2");		
 		
+		
+		System.out.println(product(3, 5));
 		
 	
 	}
+	
+	public static int product (int m, int k) {
+		if (k == 1) return m;
+		return m + product(m, k - 1);
+	}
+	
+	public static int fib (int n) {
+		if (n == 0 || n == 1) return n;
+		else return fib(n - 1) + fib(n - 2);
+	}
+	
+	
 	public static double convertToDouble(String s) {
 		String newS = "";
 		for (int i = 0; i < s.length(); i++) {

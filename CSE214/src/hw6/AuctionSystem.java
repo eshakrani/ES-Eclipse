@@ -115,6 +115,12 @@ public class AuctionSystem implements Serializable {
 					System.out.print("Please enter an Auction ID: ");
 					auctionID = stdin.nextLine();
 					
+					while (auc.table.containsKey(auctionID)) {
+						System.out.println("ERROR: ID is already in use.\n");
+						System.out.print("Please enter an Auction ID: ");
+						auctionID = stdin.nextLine();
+					}
+					
 					System.out.print("Please enter an Auction time (hours): ");
 					auctionTime = stdin.nextInt();
 					stdin.nextLine();
@@ -238,7 +244,8 @@ public class AuctionSystem implements Serializable {
 						fos = new FileOutputStream("auctions.obj");
 						oos = new ObjectOutputStream(fos);
 						oos.writeObject(auc.table);
-						System.out.println("\nWriting Auction Table to file...");
+						System.out.println("\nWriting Auction Table "
+								+ "to file...");
 						System.out.println("Done!");
 						System.out.println("\nGoodbye.");
 						System.exit(9001);
@@ -257,17 +264,4 @@ public class AuctionSystem implements Serializable {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

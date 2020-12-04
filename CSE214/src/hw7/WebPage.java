@@ -34,7 +34,7 @@ public class WebPage {
 	}
 	
 	/**
-	 * @return url of this WebPage
+	 * @return String - url of this WebPage
 	 */
 	public String getUrl() {
 		return this.url;
@@ -50,7 +50,7 @@ public class WebPage {
 	}
 	
 	/**
-	 * @return index of this WebPage
+	 * @return int - index of this WebPage
 	 */
 	public int getIndex() {
 		return this.index;
@@ -66,7 +66,7 @@ public class WebPage {
 	}
 	
 	/**
-	 * @return rank of this WebPage
+	 * @return int - rank of this WebPage
 	 */
 	public int getRank() {
 		return this.rank;
@@ -82,7 +82,7 @@ public class WebPage {
 	}
 	
 	/**
-	 * @return keywords of this WebPage
+	 * @return Collection - keywords of this WebPage
 	 */
 	public Collection getKeywords() {
 		return this.keywords;
@@ -158,6 +158,31 @@ public class WebPage {
 				s += this.links.get(i) + ", ";
 			}
 			s += this.links.get(links.size() - 1);
+		}
+		return s;
+	}
+	
+	/**
+	 * @return String representation of this WebPage's keywords
+	 */
+	public String keywordsAsString() {
+		String s = "";
+		if (this.keywords.size() == 0) {
+			//s += "***";
+		}
+		else if (this.keywords.size() == 1) {
+			int in = 1;
+			for (String st : this.keywords) {
+				s += st;
+				in++;
+				if (in == 2) break;
+			}
+		}
+		else {
+			for (String st : this.keywords) {
+				s += st + ", ";
+			}
+			s = s.substring(0, s.length() - 2);
 		}
 		return s;
 	}

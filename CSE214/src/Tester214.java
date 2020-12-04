@@ -26,9 +26,94 @@ public class Tester214 implements Serializable {
 //		}
 		
 		
-		System.out.println(product(3, 5));
-		
+		int[] b = {4, 2, 9, 1, 8, 5, 3, 10, 6, 7};
+		sort(b, 0, b.length - 1);
+		System.out.println(b.length);
+		for (int i = 0; i < b.length; i++) {
+			System.out.print(b[i] + " ");
+		}
+	}
 	
+	public static void mergeSort(int[] data, int first, int n) {
+		int n1, n2;
+		if (n > 1) {
+			n1 = n / 2;
+			n2 = n - n1;
+			mergeSort(data, first, n1);
+			mergeSort(data, first + n1, n2);
+			merge(data, first, n1, n2);
+		}
+	}
+	public static void sort(int[] arr, int l, int r) {
+		if (l < r) {
+			// find the middle point
+			int m = (l + r) / 2;
+			
+			// sort first and second halves
+			sort(arr, l, m);
+			sort(arr, m + 1, r);
+			
+			// merge the sorted halves
+			merge(arr, l, m, r);
+		}
+	}
+	
+	/*
+	 * merges two subarrays of arr[]
+	 * first subarray is arr[l...m]
+	 * second subarray is arr[m+1...r]
+	 */
+	public static void merge(int arr[], int l, int m, int r) {
+		
+		// find sizes of the two subarrays to be merged
+		int size1 = m - l + 1;
+		int size2 = r - m;
+		
+		// create temp arrays
+		int[] ltemp = new int[size1];
+		int[] rtemp = new int[size2];
+		
+		// copy data to temp arrays
+		for (int i = 0; i < size1; i++) {
+			ltemp[i] = arr[l + i];
+		}
+		for (int j = 0; j < size2; j++) {
+			rtemp[j] = arr[m + 1 + j];
+		}
+		
+		// merge the temp arrays
+		
+		// initial indices of first and second subarrays
+		int i = 0; 
+		int j = 0;
+		
+		// initial index of merged subarray array
+		int k = l;
+		while (i < size1 && j < size2) {
+			if (ltemp[i] <= rtemp[j]) {
+				arr[k] = ltemp[i];
+				i++;
+			}
+			else {
+				arr[k] = rtemp[j];
+				j++;
+			}
+			k++;
+		}
+		
+		// copy remaining elements of ltemp if any
+		while (i < size1) {
+			arr[k] = ltemp[i];
+			i++;
+			k++;
+		}
+		
+		// copy remaining elements of rtemp if any
+		while (j < size2) {
+			arr[k] = rtemp[j];
+			j++;
+			k++;
+		}
 	}
 	
 	public static int product (int m, int k) {

@@ -163,44 +163,38 @@ public class WebGraph {
 		return w;
 	}
 	
-	public static void main (String[] args) {
-		WebGraph w = buildFromFiles("pages.txt", "links.txt");
-		if (w == null) {
-			System.exit(5);
-		}
-		for (WebPage p : w.pages) {
-			System.out.println(p);
-		}
-		System.out.println("\n");
-		for (int i = 0; i < w.links.size(); i++) {
-			for (int j = 0; j < w.links.get(i).size(); j++) {
-				System.out.print(w.links.get(i).get(j) + " ");
-			}
-			System.out.println();
-		}
-		System.out.println("\n");
-		for (int i = 0; i < w.links.size(); i++) {
-			System.out.println(w.links.get(i));
-		}
-		System.out.println("\n");
-		w.printTable();
-		
-		System.out.println("\n");
-		
-		String[] s = {"friends", "social", "blog"};
-		ArrayList<String> l = new ArrayList<String>();
-		l.add("friends");
-		l.add("social");
-		l.add("blog");
-		w.addPage("tumblr.com", l);
-		w.correctLinks();
-		w.printTable();
-		System.out.println("\n");
-		for (int i = 0; i < w.links.size(); i++) {
-			System.out.println(w.links.get(i));
-		}
+	/**
+	 * @return Collection<WebPage> - set of pages for this WebGraph
+	 */
+	public Collection<WebPage> getPages() {
+		return this.pages;
 	}
 	
+	/**
+	 * @param pages - Collection<WebPage>
+	 * 
+	 * @postcondition the set of pages for this WebGraph has been set to 
+	 *  param pages
+	 */
+	public void setPages(Collection<WebPage> pages) {
+		this.pages = pages;
+	}
+	
+	/**
+	 * @return ArrayList<ArrayList<Integer>> - links for this WebGraph
+	 */
+	public ArrayList<ArrayList<Integer>> getLinks() {
+		return this.links;
+	}
+	
+	/**
+	 * @param links - ArrayList<ArrayList<Integer>>
+	 * 
+	 * @postcondition the links for this WebGraph have been set to param links
+	 */
+	public void setLinks(ArrayList<ArrayList<Integer>> links) {
+		this.links = links;
+	}
 	
 	/**
 	 * adds a page to the WebGraph
@@ -520,6 +514,17 @@ public class WebGraph {
 	}
 	
 	/**
+	 * sorts the pages in the WebGraph in descending order by index
+	 * 
+	 * @postcondition the pages in the WebGraph are sorted in descending order 
+	 * 	based on index
+	 */
+	public void decIndex() {
+		this.sortByIndex();
+		Collections.reverse((ArrayList<WebPage>)this.pages);
+	}
+	
+	/**
 	 * sorts the pages in the WebGraph in lexicographical order by URL
 	 * 
 	 * @postcondition the pages in the WebGraph are sorted in alphabetical order 
@@ -530,6 +535,17 @@ public class WebGraph {
 	}
 	
 	/**
+	 * sorts the pages in the WebGraph in descending lexicographical URL order
+	 * 
+	 * @postcondition the pages in the WebGraph are sorted in reverse 
+	 *  alphabetical order based on URL
+	 */
+	public void decURL() {
+		this.sortByURL();
+		Collections.reverse((ArrayList<WebPage>)this.pages);
+	}
+	
+	/**
 	 * sorts the pages in the WebGraph in ascending order by rank
 	 * 
 	 * @postcondition the pages in the WebGraph are sorted in ascending order 
@@ -537,6 +553,17 @@ public class WebGraph {
 	 */
 	public void sortByRank() {
 		Collections.sort((ArrayList<WebPage>)this.pages, new RankComparator());
+	}
+	
+	/**
+	 * sorts the pages in the WebGraph in descending order by rank
+	 * 
+	 * @postcondition the pages in the WebGraph are sorted in descending order 
+	 * 	based on rank
+	 */
+	public void decRank() {
+		this.sortByRank();
+		Collections.reverse((ArrayList<WebPage>)this.pages);
 	}
 	
 	/**

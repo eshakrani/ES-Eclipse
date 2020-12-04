@@ -13,6 +13,7 @@ package hw7;
 import java.util.Scanner;
 import java.util.Collection;
 import java.util.Collections;
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 @SuppressWarnings("all")
@@ -23,6 +24,21 @@ public class SearchEngine {
 	private WebGraph web;
 	
 	public static void main (String[] args) {
+		
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		boolean flag = false;
 		Scanner stdin = new Scanner(System.in);
 		
 		String input = "";
@@ -112,8 +128,10 @@ public class SearchEngine {
 							break;
 						default: System.out.println("Invalid input."); break;
 					}
+				
 					System.out.println();
 					se.web.printTable();
+					
 					System.out.println();
 					break;
 				case "S": 

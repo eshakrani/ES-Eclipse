@@ -52,14 +52,32 @@ public class CSE214BinaryTree<T> implements CSE214Tree<T> {
 			}
 			return st;
 		}
-	}
-	
-	
-	public static void main(String[] args) {
-		CSE214BinaryTree t = new CSE214BinaryTree("A", "B", "C", "D", "E");
-//		t.prieorder(t.root);
-		System.out.println(t.postorder());
-//		System.out.println(t.root);
+		
+		int numNodesHelper(BinaryTreeNode node) {
+			if (node == null) {
+				return 0;
+			}
+			else {
+				return 1 + numNodesHelper(node.left) + numNodesHelper(node.right);
+			}
+		}
+		
+		int depthHelper(BinaryTreeNode node) {
+			if (node == null) {
+				return 0;
+			}
+			else {
+				int leftDepth = depthHelper(node.left);
+				int rightDepth = depthHelper(node.right);
+				
+				if (leftDepth > rightDepth) {
+					return (leftDepth + 1);
+				}
+				else {
+					return (rightDepth + 1);
+				}
+			}
+		}
 	}
 	
 	private BinaryTreeNode<T> root;
@@ -107,19 +125,15 @@ public class CSE214BinaryTree<T> implements CSE214Tree<T> {
 		for (int i = 0; i < in.length(); i++) {
 			result += in.charAt(i) + ", ";
 		}
-		return result.
+		return result.substring(0, result.length() - 2);
 	}
 
-	@Override
 	public int numNodes() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.root.numNodesHelper(this.root);
 	}
 
-	@Override
 	public int depth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.root.depthHelper(this.root);
 	}
 
 	
